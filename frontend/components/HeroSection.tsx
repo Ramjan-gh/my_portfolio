@@ -73,18 +73,18 @@ export default function HeroSection() {
 
     const fetchData = async () => {
       try {
-        const [heroRes, expRes] = await Promise.all([
-          fetch(`${API_URL}/api/hero`),
-          fetch(`${API_URL}/api/expertise`),
-        ]);
-        if (!heroRes.ok || !expRes.ok) throw new Error("Fetch failed");
-        const [heroJson, expJson] = await Promise.all([
-          heroRes.json(),
-          expRes.json(),
-        ]);
-        
-        setData(heroJson);
-        setExpertise(expJson);
+        // Since you merged everything into /api/hero, we only need ONE fetch
+        const response = await fetch(`${API_URL}/api/hero`);
+
+        if (!response.ok) throw new Error("Failed to fetch hero data");
+
+        const json = await response.json();
+
+        // Update both states from the single JSON object
+        setData(json);
+        if (json.expertise) {
+          setExpertise(json.expertise);
+        }
       } catch (err) {
         console.error("Fetch error:", err);
       } finally {
@@ -100,8 +100,8 @@ export default function HeroSection() {
 
   // Same outer shell is always rendered — only inner text/icons swap
   return (
-    <div className="bg-[#44444E] flex flex-col items-center relative overflow-visible pt-10 md:pt-0">
-      <section className="max-w-7xl mx-auto px-6 md:px-12 lg:px-6 md:pt-20 pb-20 flex flex-col md:grid grid-cols-1 md:grid-cols-3 items-center relative w-full md:gap-0 md:h-[335px] lg:h-[420px] xl:h-120">
+    <div className="bg-gradient-to-b from-[#1A1A1E] to-[#44444E] flex flex-col items-center relative overflow-visible pt-10 md:pt-0">
+      <section className="max-w-7xl mx-auto px-6 md:px-12 lg:px-6 md:pt-20 pb-20 flex flex-col md:grid grid-cols-1 md:grid-cols-3 items-center relative w-full md:gap-0 min-h-">
         {/* LEFT SIDE */}
         <div className="relative z-10 order-1 md:order-1 md:mb-20 md:-mr-24 lg:-mr-32 transition-all duration-500">
           {/* Greeting */}
@@ -131,9 +131,9 @@ export default function HeroSection() {
               ) : (
                 <motion.h1
                   key="name-real"
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.5 }}
+                  initial={{ opacity: 0, x: -30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.6 }}
                   className="text-5xl md:text-6xl lg:text-7xl font-bold"
                 >
                   <span className="text-yellow-400">{data?.name}</span>
@@ -182,7 +182,7 @@ export default function HeroSection() {
           initial={{ opacity: 0, scale: 0.92 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6 }}
-          className="relative flex justify-center order-2 md:order-2 mt-12 md:mt-0"
+          className="relative flex justify-center order-2 md:order-2 mt-12 md:mt-0 pointer-events-none"
         >
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 md:w-96 md:h-96 lg:w-105 lg:h-105 bg-[#37353E] rounded-full z-0 shadow-inner" />
           <div className="relative z-20 w-88 md:w-105 lg:w-125">
@@ -266,9 +266,9 @@ export default function HeroSection() {
       <motion.div
         animate={{ y: [0, -10, 0] }}
         transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute bottom-100 md:relative md:bottom-0 z-50 w-105 md:w-165 lg:w-full max-w-4xl px-6 md:px-0 -mb-12 mt-10"
+        className="absolute bottom-100 md:relative md:bottom-35 lg:bottom-20 z-50 w-105 md:w-165 lg:w-full max-w-4xl px-6 md:px-0"
       >
-        <div className="bg-[#2A2A30] backdrop-blur-2xl border border-white/10 rounded-2xl md:rounded-full px-6 py-5 md:px-10 flex justify-around items-center md:gap-4 shadow-2xl">
+        <div className="backdrop-blur-2xl border border-white/10 rounded-2xl md:rounded-full px-6 py-5 md:px-10 flex justify-around items-center md:gap-4 shadow-lg">
           {expertise.map((item) => (
             <div
               key={item.id}

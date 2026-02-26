@@ -30,7 +30,8 @@ interface HeroSettings {
   greeting: string;
   subtitle: string;
   services_description: string;
-  socials?: Social[]; // Nested socials array
+  socials?: Social[];
+  expertise?: ExpertiseItem[];
 }
 
 interface ExpertiseItem {
@@ -56,8 +57,6 @@ app.get('/api/hero', async (req: Request, res: Response) => {
       .select('*')
       .single();  
 
-
-      console.log("Fetched hero data:", heroData); // Debug log 
     if (heroError) throw heroError;
   
 
@@ -67,12 +66,18 @@ app.get('/api/hero', async (req: Request, res: Response) => {
       .select('platform,url')
       .eq('is_active', true);
 
-      console.log("Fetched socials:", socials); // Debug log
+    // 3. Fetch Expertise/Skills for the Branding Bar
+    const { data: expertise, error: expertiseError } = await supabase
+      .from('expertise')
+      .select('*')
+      .order('id', { ascending: true }); // Keep icons in order
+
 
     // 3. Merge Socials into the Hero object
     const response: HeroSettings = {
       ...heroData,
-      socials: socials || []
+      socials: socials || [],
+      expertise: expertise || []
     };
 
 
@@ -83,18 +88,6 @@ app.get('/api/hero', async (req: Request, res: Response) => {
   }
 });
 
-/**
- * Fetches Expertise/Skills for the Branding Bar
- */
-app.get('/api/expertise', async (req: Request, res: Response) => {
-  const { data, error } = await supabase
-    .from('expertise')
-    .select('*')
-    .order('id', { ascending: true }); // Keep icons in order
-
-  if (error) return res.status(400).json(error);
-  res.json(data as ExpertiseItem[]);
-});
 
 // Server Initialization
 const PORT = process.env.PORT || 5000;

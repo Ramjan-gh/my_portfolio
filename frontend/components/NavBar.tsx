@@ -5,7 +5,6 @@ import { Menu, X, Code2 } from "lucide-react";
 
 const navLinks = [
   { name: "Home", href: "#home" },
-  { name: "Expertise", href: "#expertise" },
   { name: "Services", href: "#services" },
   { name: "Projects", href: "#projects" },
   { name: "Contact", href: "#contact" },
@@ -25,8 +24,8 @@ export default function Navbar() {
 
   return (
     /* Added relative and z-[110] to ensure the menu stays on top */
-    <nav className="bg-[#37353E] md:bg-[#44444E] relative w-full z-[110] px-6 py-4 md:-mb-7">
-      <div className="max-w-7xl mx-auto flex items-center justify-between py-3 rounded-2xl transition-all">
+    <nav className="bg-[#37353E] md:bg-[#1A1A1E] relative w-full z-[110] px-6 py-4">
+      <div className="md:px-6 max-w-7xl mx-auto flex items-center justify-between py-3 rounded-2xl transition-all">
         {/* LOGO */}
         <div className="flex items-center gap-2">
           <div className="bg-yellow-400 p-1.5 rounded-lg">
