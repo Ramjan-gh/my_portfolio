@@ -11,33 +11,43 @@ interface HeroData {
   services_description: string;
 }
 
+interface ExpertiseItem {
+  id: string | number;
+  name: string;
+  icon_name: string;
+}
+
 export default function HeroSection() {
   const [data, setData] = useState<HeroData | null>(null);
   const [loading, setLoading] = useState(true);
-  const [expertise, setExpertise] = useState([]);
+  const [expertise, setExpertise] = useState<ExpertiseItem[]>([]);
+
+  // Use an Environment Variable for the API URL
+  const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
 
   useEffect(() => {
-    // Fetch from your Node.js backend
-    fetch("http://localhost:5000/api/hero")
-      .then((res) => res.json())
-      .then((json) => {
-        setData(json);
-        setLoading(false);
+    const fetchData = async () => {
+      try {
+        const [heroRes, expRes] = await Promise.all([
+          fetch(`${API_URL}/api/hero`),
+          fetch(`${API_URL}/api/expertise`),
+        ]);
 
-        console.log("Fetched hero data:", json.name);
-      })
-      .catch((err) => {
-        console.error("Failed to fetch hero:", err);
-        setLoading(false);
-      });
-  }, []);
+        if (!heroRes.ok || !expRes.ok) throw new Error("Fetch failed");
 
-  useEffect(() => {
-    // Add a fetch for /api/expertise
-    fetch("http://localhost:5000/api/expertise")
-      .then((res) => res.json())
-      .then((data) => setExpertise(data));
-  }, []);
+        const heroJson = await heroRes.json();
+        const expJson = await expRes.json();
+
+        setData(heroJson);
+        setExpertise(expJson);
+      } catch (err) {
+        console.error("Build/Fetch error:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, [API_URL]);
 
   //show a ghost/loading state while fetching data
   if (loading)
@@ -54,7 +64,6 @@ export default function HeroSection() {
     Layout: <Layout size={20} className="text-yellow-400" />,
     Smartphone: <Smartphone size={20} className="text-green-400" />,
   };
-  
 
   return (
     /* MAIN WRAPPER - The "Grey" Section */
@@ -133,24 +142,30 @@ export default function HeroSection() {
         className="absolute bottom-88 md:relative md:bottom-0 z-50 w-100 md:w-165 lg:w-full max-w-4xl px-6 md:px-0 -mb-12 mt-10"
       >
         <div className="bg-[#2A2A30] backdrop-blur-2xl border border-white/10 rounded-2xl md:rounded-full px-6 py-5 md:px-10 flex justify-around items-center md:gap-4 shadow-2xl">
-          {expertise.map((item: any) => (
-            <div
-              key={item.id}
-              className="flex items-center gap-3 group md:min-w-0"
-            >
-              <div className="p-3 bg-white/10 rounded-full group-hover:bg-white/20 transition-all">
-                {IconMap[item.icon_name] || <HelpCircle />}
+          {expertise.map(
+            (item: {
+              id: string | number;
+              name: string;
+              icon_name: string;
+            }) => (
+              <div
+                key={item.id}
+                className="flex items-center gap-3 group md:min-w-0"
+              >
+                <div className="p-3 bg-white/10 rounded-full group-hover:bg-white/20 transition-all">
+                  {IconMap[item.icon_name] || <HelpCircle />}
+                </div>
+                <div className="flex-col text-left hidden md:flex">
+                  <span className="text-[9px] text-gray-500 uppercase tracking-widest font-bold">
+                    Expertise
+                  </span>
+                  <span className="text-xs md:text-sm font-semibold text-white group-hover:text-yellow-400 transition-colors">
+                    {item.name}
+                  </span>
+                </div>
               </div>
-              <div className="flex-col text-left hidden md:flex">
-                <span className="text-[9px] text-gray-500 uppercase tracking-widest font-bold">
-                  Expertise
-                </span>
-                <span className="text-xs md:text-sm font-semibold text-white group-hover:text-yellow-400 transition-colors">
-                  {item.name}
-                </span>
-              </div>
-            </div>
-          ))}
+            ),
+          )}
         </div>
       </motion.div>
     </div>
