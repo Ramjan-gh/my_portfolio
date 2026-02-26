@@ -6,7 +6,12 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 
 const app = express();
-app.use(cors());
+
+app.use(cors({
+  origin: "*", // For now, we use "*" to allow all devices (like your phone) to connect. 
+  methods: ["GET", "POST"]
+}));
+
 app.use(express.json());
 
 // Initialize Supabase with Types
@@ -23,6 +28,10 @@ interface HeroSettings {
   subtitle: string;
   services_description: string;
 }
+
+app.get('/', (req: Request, res: Response) => {
+  res.send('Backend is running successfully!');
+});
 
 app.get('/api/hero', async (req: Request, res: Response) => {
   const { data, error } = await supabase
@@ -44,4 +53,6 @@ app.get('/api/expertise', async (req: Request, res: Response) => {
 });
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`TypeScript Backend running on port ${PORT}`));
+app.listen(Number(PORT), "0.0.0.0", () => {
+  console.log(`TypeScript Backend running on port ${PORT}`);
+});
