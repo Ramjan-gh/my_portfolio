@@ -25,7 +25,7 @@ export default function Navbar() {
 
   return (
     /* Added relative and z-[110] to ensure the menu stays on top */
-    <nav className="bg-[#44444E] relative w-full z-[110] px-6 py-4 md:-mb-7">
+    <nav className="bg-[#37353E] md:bg-[#44444E] relative w-full z-[110] px-6 py-4 md:-mb-7">
       <div className="max-w-7xl mx-auto flex items-center justify-between py-3 rounded-2xl transition-all">
         {/* LOGO */}
         <div className="flex items-center gap-2">
