@@ -23,7 +23,7 @@ export default function HeroSection() {
   const [expertise, setExpertise] = useState<ExpertiseItem[]>([]);
 
   // Use an Environment Variable for the API URL
-  const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+  const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://192.168.0.105:5000";
 
   useEffect(() => {
     const fetchData = async () => {
@@ -50,12 +50,33 @@ export default function HeroSection() {
   }, [API_URL]);
 
   //show a ghost/loading state while fetching data
-  if (loading)
+  if (loading) {
     return (
-      <div className="bg-[#44444E] flex items-center justify-center min-h-screen">
-        <p className="text-gray-500 text-lg">Loading...</p>
+      <div className="flex flex-col items-center justify-center min-h-screen bg-[#0F0F12]">
+        {/* The Spinner */}
+        <div className="relative flex items-center justify-center">
+          <div className="w-16 h-16 border-2 border-blue-500/20 border-t-blue-500 rounded-full animate-spin"></div>
+          <div className="absolute w-10 h-10 bg-[#1A1A1E] rounded-full flex items-center justify-center border border-white/5 shadow-2xl">
+            {/* Your Initials or a small icon here */}
+            <span className="text-[10px] text-blue-400 font-bold tracking-tighter">
+              RG
+            </span>
+          </div>
+        </div>
+
+        {/* Professional Text */}
+        <div className="mt-6 text-center">
+          <p className="text-white/80 text-sm font-light tracking-[0.2em] uppercase animate-pulse">
+            Loading Experience
+          </p>
+          {/* Subtle progress bar instead of "Fetching..." */}
+          <div className="mt-4 w-32 h-[1px] bg-white/10 overflow-hidden relative">
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-blue-500 to-transparent w-full animate-shimmer"></div>
+          </div>
+        </div>
       </div>
     );
+  }
 
   // This object maps the string from DB to the Actual Component
   const IconMap: Record<string, any> = {
@@ -102,13 +123,13 @@ export default function HeroSection() {
           className="relative flex justify-center order-2 md:order-2 mt-12 md:mt-0"
         >
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 md:w-96 md:h-96 lg:w-105 lg:h-105 bg-[#37353E] rounded-full z-0 shadow-inner" />
-          <div className="relative z-20 w-64 md:w-105 lg:w-125">
+          <div className="relative z-20 w-88 md:w-105 lg:w-125">
             <Image
               src="/profile3.png"
               alt="Ramjan"
               width={700}
               height={700}
-              className="object-contain drop-shadow-2xl"
+              className="object-contain drop-shadow-2xl pl-6 md:pl-0"
               priority
             />
           </div>
