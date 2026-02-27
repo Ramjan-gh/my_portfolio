@@ -12,7 +12,7 @@ const AboutPage = () => {
 
   return (
     <div className="bg-[#2e2e33] text-[#E4E4E4] selection:bg-yellow-400 selection:text-black">
-      {/* We removed min-h-screen to allow the negative margin to work correctly with following content */}
+      
       <main className="max-w-7xl mx-auto px-6 md:px-12 lg:px-6 pt-24 md:pt-40">
         {/* HEADER SECTION: LARGE TYPE */}
         <section className="mb-32">

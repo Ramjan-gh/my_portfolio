@@ -54,7 +54,7 @@ const SkillsPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-[#2e2e33] text-white py-20">
+    <div className="bg-[#2e2e33] text-white py-20">
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-6">
         {/* Header Section */}
         <motion.div

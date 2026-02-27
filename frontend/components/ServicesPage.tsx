@@ -46,7 +46,7 @@ const ServicesPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-[#3d3c42] text-white pt-35 md:pt-50 py-16 ">
+    <div className=" bg-[#3d3c42] text-white pt-35 md:pt-50 py-16 ">
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-6 flex flex-col gap-16 ">
         {/* --- TOP SECTION --- */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">

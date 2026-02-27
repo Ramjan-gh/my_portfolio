@@ -17,7 +17,7 @@ const Footer = () => {
           {/* BRAND SECTION */}
           <div className="lg:col-span-2">
             <h2 className="text-2xl font-bold mb-6 tracking-tighter">
-              YOURNAME<span className="text-yellow-400">.DEV</span>
+              RAMJAN<span className="text-yellow-400">.DEV</span>
             </h2>
             <p className="text-gray-400 max-w-sm leading-relaxed mb-8">
               Building scalable digital products with a focus on performance,
@@ -48,7 +48,7 @@ const Footer = () => {
               Navigation
             </h4>
             <ul className="space-y-4">
-              {["About", "Services", "Projects", "Contact"].map((link) => (
+              {["About", "Services", "Skills", "Projects", "Contact"].map((link) => (
                 <li key={link}>
                   <a
                     href={`#${link.toLowerCase()}`}

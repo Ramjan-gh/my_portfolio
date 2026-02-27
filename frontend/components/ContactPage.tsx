@@ -26,25 +26,25 @@ const ContactPage = () => {
     {
       name: "LinkedIn",
       icon: <Linkedin size={20} />,
-      url: "#",
+      url: "https://www.linkedin.com/in/ramjan-ali-581b7b341",
       color: "hover:text-blue-400",
     },
     {
       name: "GitHub",
       icon: <Github size={20} />,
-      url: "#",
+      url: "https://github.com/Ramjan-gh",
       color: "hover:text-white",
     },
     {
       name: "Twitter",
       icon: <Twitter size={20} />,
-      url: "#",
+      url: "https://x.com/Ramjan227",
       color: "hover:text-sky-400",
     },
   ];
 
   return (
-    <div className="min-h-screen bg-[#2e2e33] text-[#E4E4E4] selection:bg-yellow-400 selection:text-black">
+    <div className="bg-[#2e2e33] text-[#E4E4E4] selection:bg-yellow-400 selection:text-black">
       <main className="max-w-7xl mx-auto px-6 md:px-12 lg:px-6 pt-24 md:pt-40 pb-32">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
           {/* --- LEFT COLUMN: INFO & SOCIALS --- */}
@@ -81,7 +81,7 @@ const ContactPage = () => {
                       Email me
                     </p>
                     <p className="text-lg font-medium group-hover:text-yellow-400 transition-colors">
-                      hello@yourname.dev
+                      ramzanhridoy@gmail.com
                     </p>
                   </div>
                 </a>
@@ -95,7 +95,7 @@ const ContactPage = () => {
                       Availability
                     </p>
                     <p className="text-lg font-medium">
-                      Open for Q3 2026 projects
+                      Open for immediate projects
                     </p>
                   </div>
                 </div>
