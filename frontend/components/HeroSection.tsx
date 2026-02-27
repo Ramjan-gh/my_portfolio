@@ -101,7 +101,7 @@ export default function HeroSection() {
   // Same outer shell is always rendered — only inner text/icons swap
   return (
     <div className="bg-gradient-to-b from-[#1A1A1E] to-[#44444E] flex flex-col items-center relative overflow-visible pt-10 md:pt-0">
-      <section className="max-w-7xl mx-auto px-6 md:px-12 lg:px-6 md:pt-20 pb-20 flex flex-col md:grid grid-cols-1 md:grid-cols-3 items-center relative w-full md:gap-0 min-h-">
+      <section className="max-w-7xl px-6 md:px-12 lg:px-6 md:pt-20 pb-20 flex flex-col md:grid grid-cols-1 md:grid-cols-3 items-center relative w-full md:gap-0 min-h-">
         {/* LEFT SIDE */}
         <div className="relative z-10 order-1 md:order-1 md:mb-20 md:-mr-24 lg:-mr-32 transition-all duration-500">
           {/* Greeting */}

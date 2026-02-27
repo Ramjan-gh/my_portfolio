@@ -11,9 +11,9 @@ const AboutPage = () => {
   ];
 
   return (
-    <div className="bg-[#1A1A1E] text-[#E4E4E4] selection:bg-yellow-400 selection:text-black">
+    <div className="bg-[#2e2e33] text-[#E4E4E4] selection:bg-yellow-400 selection:text-black">
       {/* We removed min-h-screen to allow the negative margin to work correctly with following content */}
-      <main className="max-w-7xl mx-auto px-6 pt-24 md:pt-40">
+      <main className="max-w-7xl mx-auto px-6 md:px-12 lg:px-6 pt-24 md:pt-40">
         {/* HEADER SECTION: LARGE TYPE */}
         <section className="mb-32">
           <motion.div
@@ -21,14 +21,12 @@ const AboutPage = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <span className="text-yellow-400 font-mono text-sm tracking-widest uppercase mb-4 block">
+            <span className="text-yellow-400 font-mono text-sm md:text-sm tracking-widest uppercase mb-4 block">
               // Professional Profile 2026
             </span>
-            <h1 className="text-5xl md:text-8xl font-bold tracking-tighter leading-[0.9] mb-12">
+            <h1 className="text-3xl md:text-5xl  font-bold mb-12">
               ENGINEERING <br />
-              <span className="text-yellow-400 ">
-                DIGITAL REALITIES.
-              </span>
+              <span className="text-yellow-400 ">DIGITAL REALITIES.</span>
             </h1>
           </motion.div>
 
@@ -107,7 +105,7 @@ const AboutPage = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.1 }}
-              className="bg-[#44444E] p-8 border border-white/10 shadow-2xl rounded-sm hover:border-yellow-400/50 transition-all group"
+              className="bg-[#44444E] p-8 border border-white/10 shadow-lg rounded-4xl hover:border-yellow-400/50 transition-all group"
             >
               <p className="text-[10px] font-mono text-yellow-400 uppercase tracking-[0.2em] mb-4 group-hover:translate-x-1 transition-transform">
                 {spec.label}

@@ -3,32 +3,34 @@ import React from "react";
 import { motion } from "framer-motion";
 import {
   CheckCircle2,
-  Layout,
-  Database,
-  Terminal,
-  Palette,
   CodeXml,
-  Smartphone,
   MoveRight,
+  Rocket,
+  LayoutDashboard,
+  Webhook,
 } from "lucide-react";
 
 const ServicesPage = () => {
-  // Data for the NEW section (based on your image)
   const cardServices = [
     {
-      title: "UI/UX Design",
-      desc: "Create a beautiful and useful UI display for ease of use of the application for users.",
-      icon: <Palette className="text-yellow-400" size={24} />,
+      title: "Custom Web Apps",
+      desc: "Full-stack web apps with React/Next.js, Node.js, and modern databases. Scalable and production-ready.",
+      icon: <CodeXml className="text-yellow-400" size={22} />,
     },
     {
-      title: "Web Programming",
-      desc: "Build a quality website with the best technology and optimization on search engines.",
-      icon: <CodeXml className="text-yellow-400" size={24} />,
+      title: "MVP Development",
+      desc: "Rapid prototyping and MVP builds for startups. Go from idea to launched product fast.",
+      icon: <Rocket className="text-yellow-400" size={22} />,
     },
     {
-      title: "Mobile Development",
-      desc: "Create an app from your own business for a more professional business performance.",
-      icon: <Smartphone className="text-yellow-400" size={24} />,
+      title: "Admin Panels",
+      desc: "Data-rich internal tools and analytics dashboards with real-time features and intuitive interfaces.",
+      icon: <LayoutDashboard className="text-yellow-400" size={22} />,
+    },
+    {
+      title: "API & Integration",
+      desc: "RESTful APIs and third-party integrations (payment, CRM, AI) built to scale robustly.",
+      icon: <Webhook className="text-yellow-400" size={22} />,
     },
   ];
 
@@ -44,86 +46,47 @@ const ServicesPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-[#313035] text-white py-20 md:pt-36 px-6 md:px-12">
-      <div className="max-w-7xl mx-auto flex flex-col gap-24">
-        {/* --- EXISTING TOP SECTION --- */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-          {/* LEFT COLUMN: INTRO */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <h1 className="text-4xl md:text-5xl font-bold mb-8">
-              Let's build your <br />{" "}
+    <div className="min-h-screen bg-[#3d3c42] text-white pt-35 md:pt-50 py-16 ">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-6 flex flex-col gap-16 ">
+        {/* --- TOP SECTION --- */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <motion.div>
+            <h1 className="text-3xl md:text-5xl font-bold mb-6">
+              Let's build your <br />
               <span className="text-gray-400">digital future.</span>
             </h1>
-            <div className="space-y-8">
-              {/* Simplified services list to keep focus on the bottom cards */}
-              <p className="text-gray-400 leading-relaxed max-w-md">
-                I combine frontend creativity with backend logic to build
-                complete digital products that are scalable and user-centric.
-              </p>
-            </div>
-          </motion.div>
-
-          {/* RIGHT COLUMN: THE STACK */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="p-8 md:p-12 bg-white/5 rounded-3xl border border-white/5"
-          >
-            <h3 className="text-2xl font-bold mb-6">Technical Arsenal</h3>
-            <div className="flex flex-wrap gap-3 mb-10">
-              {mySkills.map((skill) => (
-                <span
-                  key={skill}
-                  className="px-4 py-2 bg-[#313035] border border-white/10 rounded-full text-sm font-medium"
-                >
-                  {skill}
-                </span>
-              ))}
-            </div>
-            <div className="space-y-4 border-t border-white/10 pt-8">
-              <div className="flex items-center gap-3 text-sm text-gray-300">
-                <CheckCircle2 size={18} className="text-yellow-400" />
-                <span>Full-Stack approach (Frontend + Backend)</span>
-              </div>
-              <div className="flex items-center gap-3 text-sm text-gray-300">
-                <CheckCircle2 size={18} className="text-yellow-400" />
-                <span>API testing and documentation (Postman)</span>
-              </div>
-            </div>
+            <p className="text-gray-400 text-sm md:text-base leading-relaxed max-w-sm">
+              I combine frontend creativity with backend logic to build complete
+              digital products.
+            </p>
           </motion.div>
         </div>
 
-        {/* --- NEW SECTION (EXACTLY LIKE YOUR PHOTO) --- */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {/* --- COMPACT SERVICES GRID --- */}
+        {/* Changed to md:grid-cols-3 and lg:grid-cols-4 for a tighter look */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {cardServices.map((service, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
-              className="bg-[#3b3a3f] p-10 rounded-2xl flex flex-col h-full shadow-2xl group border border-transparent hover:border-yellow-400/20 transition-all"
+              className=" p-6 rounded-xl flex flex-col h-full border border-white/5 hover:border-yellow-400/30 transition-all group"
             >
-              {/* Icon Container */}
-              <div className="mb-6 bg-white/5 w-fit p-3 rounded-lg group-hover:scale-110 transition-transform">
+              <div className="mb-4 bg-white/5 w-fit p-2.5 rounded-lg group-hover:bg-yellow-400/10 transition-colors">
                 {service.icon}
               </div>
 
-              {/* Title */}
-              <h3 className="text-2xl font-bold mb-4">{service.title}</h3>
+              <h3 className="text-lg font-bold mb-2 group-hover:text-yellow-400 transition-colors">
+                {service.title}
+              </h3>
 
-              {/* Description */}
-              <p className="text-gray-400 text-sm leading-relaxed mb-10 flex-grow">
+              <p className="text-gray-400 text-xs leading-relaxed mb-6 flex-grow">
                 {service.desc}
               </p>
 
-              {/* "Show More" Link */}
-              <button className="flex items-center gap-2 text-yellow-400 text-xs font-bold tracking-widest uppercase hover:gap-4 transition-all">
-                Show More <MoveRight size={16} />
+              <button className="flex items-center gap-2 text-yellow-400 text-[10px] font-bold tracking-widest uppercase mt-auto">
+                Learn More <MoveRight size={14} />
               </button>
             </motion.div>
           ))}
@@ -131,9 +94,9 @@ const ServicesPage = () => {
 
         {/* BOTTOM CTA */}
         <motion.button
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
-          className="w-full py-5 bg-yellow-400 text-black font-extrabold rounded-2xl text-xl shadow-xl shadow-yellow-400/10"
+          whileHover={{ scale: 1.01 }}
+          whileTap={{ scale: 0.99 }}
+          className="w-full py-4 bg-yellow-400 text-black font-bold rounded-xl text-lg shadow-lg hover:bg-yellow-300 transition-colors"
         >
           Start a Collaboration
         </motion.button>
