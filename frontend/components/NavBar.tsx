@@ -14,6 +14,16 @@ const navLinks = [
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  // Change background on scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // Prevent scrolling when mobile menu is open
   useEffect(() => {
@@ -25,12 +35,17 @@ export default function Navbar() {
   }, [isOpen]);
 
   return (
-    /* Added relative and z-[110] to ensure the menu stays on top */
-    <nav className="bg-[#37353E] md:bg-[#1A1A1E] relative w-full z-[110] px-6 py-4">
-      <div className="md:px-6 max-w-7xl mx-auto flex items-center justify-between py-3 rounded-2xl transition-all">
+    <nav
+      className={`fixed top-0 left-0 w-full z-[110] transition-all duration-300 px-6 py-3 ${
+        scrolled
+          ? "bg-[#1A1A1E]/80 backdrop-blur-lg shadow-xl border-b border-white/5"
+          : "bg-[#1A1A1E] md:bg-transparent"
+      }`}
+    >
+      <div className="max-w-7xl mx-auto flex items-center justify-between py-2">
         {/* LOGO */}
         <div className="flex items-center gap-2">
-          <div className="bg-yellow-400 p-1.5 rounded-lg">
+          <div className="bg-yellow-400 p-1.5 rounded-lg shadow-lg shadow-yellow-400/20">
             <Code2 size={20} className="text-black" />
           </div>
           <span className="text-white font-bold text-xl tracking-tighter">
@@ -49,12 +64,12 @@ export default function Navbar() {
               {link.name}
             </a>
           ))}
-          <button className="bg-white/10 hover:bg-white/20 text-white px-5 py-2 rounded-xl text-sm font-semibold transition-all border border-white/10">
+          <button className="bg-yellow-400 hover:bg-yellow-500 text-black px-5 py-2 rounded-xl text-sm font-bold transition-all transform hover:scale-105 active:scale-95">
             Let's Talk
           </button>
         </div>
 
-        {/* MOBILE MENU BUTTON - Higher z-index to stay above dropdown */}
+        {/* MOBILE MENU BUTTON */}
         <button
           className="md:hidden text-white z-[120] relative p-2"
           onClick={() => setIsOpen(!isOpen)}
@@ -68,13 +83,13 @@ export default function Navbar() {
       <AnimatePresence>
         {isOpen && (
           <>
-            {/* Backdrop: Closes menu when clicking outside */}
+            {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsOpen(false)}
-              className="fixed inset-0 bg-black/60 z-[101] md:hidden"
+              className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[101] md:hidden"
             />
 
             {/* Menu Card */}
@@ -82,8 +97,8 @@ export default function Navbar() {
               initial={{ opacity: 0, y: -20, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -20, scale: 0.95 }}
-              transition={{ duration: 0.2 }}
-              className="absolute top-24 left-6 right-6 bg-[#2A2A30] border border-white/10 rounded-2xl p-6 flex flex-col gap-4 shadow-2xl z-[105] md:hidden"
+              transition={{ type: "spring", damping: 20, stiffness: 300 }}
+              className="absolute top-20 left-6 right-6 bg-[#2A2A30] border border-white/10 rounded-2xl p-6 flex flex-col gap-4 shadow-2xl z-[105] md:hidden"
             >
               {navLinks.map((link, index) => (
                 <motion.a
@@ -98,7 +113,7 @@ export default function Navbar() {
                   {link.name}
                 </motion.a>
               ))}
-              <button className="bg-yellow-400 text-black w-full py-4 rounded-xl font-bold mt-2 shadow-lg shadow-yellow-400/10">
+              <button className="bg-yellow-400 text-black w-full py-4 rounded-xl font-bold mt-2 shadow-lg shadow-yellow-400/20">
                 Let's Talk
               </button>
             </motion.div>

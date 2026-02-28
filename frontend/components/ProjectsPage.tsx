@@ -52,7 +52,10 @@ const ProjectsPage = () => {
   };
 
   return (
-    <div className="bg-[#3d3c42] text-[#E4E4E4] selection:bg-yellow-400 selection:text-black">
+    <div
+      id="projects"
+      className="bg-[#3d3c42] text-[#E4E4E4] selection:bg-yellow-400 selection:text-black"
+    >
       <main className="max-w-7xl mx-auto px-6 md:px-12 lg:px-6 pt-24 md:pt-40 pb-32">
         {/* --- HEADER --- */}
         <header className="mb-20">

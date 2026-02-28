@@ -44,8 +44,11 @@ const ContactPage = () => {
   ];
 
   return (
-    <div className="bg-[#2e2e33] text-[#E4E4E4] selection:bg-yellow-400 selection:text-black">
-      <main className="max-w-7xl mx-auto px-6 md:px-12 lg:px-6 pt-24 md:pt-40 pb-32">
+    <div
+      id="contact"
+      className=" bg-[#2e2e33] text-[#E4E4E4] selection:bg-yellow-400 selection:text-black md:min-h-screen flex items-center"
+    >
+      <main className="max-w-7xl mx-auto px-6 md:px-12 lg:px-6 pb-32 pt-24 md:pt-40">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
           {/* --- LEFT COLUMN: INFO & SOCIALS --- */}
           <motion.div
