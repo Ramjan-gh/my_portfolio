@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { motion, Variants } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   Mail,
   MessageSquare,
@@ -12,16 +12,6 @@ import {
 } from "lucide-react";
 
 const ContactPage = () => {
-  // Animation Variants
-  const fadeInUp: Variants = {
-    initial: { opacity: 0, y: 20 },
-    whileInView: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6, ease: "easeOut" },
-    },
-  };
-
   const socialLinks = [
     {
       name: "LinkedIn",
@@ -46,15 +36,16 @@ const ContactPage = () => {
   return (
     <div
       id="contact"
-      className=" bg-[#2e2e33] text-[#E4E4E4] selection:bg-yellow-400 selection:text-black md:min-h-screen flex items-center"
+      className="bg-[#2e2e33] text-[#E4E4E4] selection:bg-yellow-400 selection:text-black md:min-h-screen flex items-center"
     >
       <main className="max-w-7xl mx-auto px-6 md:px-12 lg:px-6 pb-32 pt-24 md:pt-40">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
-          {/* --- LEFT COLUMN: INFO & SOCIALS --- */}
+          {/* LEFT COLUMN */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: false }}
+            transition={{ duration: 0.6 }}
             className="flex flex-col justify-between"
           >
             <div>
@@ -73,7 +64,7 @@ const ContactPage = () => {
 
               <div className="space-y-6">
                 <a
-                  href="mailto:your.email@example.com"
+                  href="mailto:ramzanhridoy@gmail.com"
                   className="group flex items-center gap-4 w-fit"
                 >
                   <div className="p-4 bg-[#3b3a3f] rounded-full group-hover:bg-yellow-400 group-hover:text-black transition-all duration-300">
@@ -132,12 +123,12 @@ const ContactPage = () => {
             </div>
           </motion.div>
 
-          {/* --- RIGHT COLUMN: CONTACT FORM --- */}
+          {/* RIGHT COLUMN: FORM */}
           <motion.div
-            variants={fadeInUp}
-            initial="initial"
-            whileInView="whileInView"
-            viewport={{ once: true }}
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: false }}
+            transition={{ duration: 0.6, delay: 0.1 }}
             className="bg-[#3b3a3f] p-8 md:p-12 rounded-3xl border border-white/5 shadow-lg"
           >
             <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
@@ -201,5 +192,5 @@ const ContactPage = () => {
     </div>
   );
 };
-
+ 
 export default ContactPage;
