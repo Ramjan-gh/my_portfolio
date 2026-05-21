@@ -13,26 +13,33 @@ const AboutPage = () => {
   return (
     <div
       id="about"
-      className=" bg-[#2e2e33] text-[#E4E4E4] selection:bg-yellow-400 selection:text-black"
+      className="bg-[#2e2e33] text-[#E4E4E4] selection:bg-yellow-400 selection:text-black"
     >
       <main className="max-w-7xl mx-auto px-6 md:px-12 lg:px-6 pt-24 md:pt-40">
-        {/* HEADER SECTION: LARGE TYPE */}
+        {/* HEADER SECTION */}
         <section className="mb-32">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false }}
             transition={{ duration: 0.8 }}
           >
-            <span className="text-yellow-400 font-mono text-sm md:text-sm tracking-widest uppercase mb-4 block">
+            <span className="text-yellow-400 font-mono text-sm tracking-widest uppercase mb-4 block">
               // Professional Profile 2026
             </span>
-            <h1 className="text-3xl md:text-5xl  font-bold mb-12">
+            <h1 className="text-3xl md:text-5xl font-bold mb-12">
               ENGINEERING <br />
-              <span className="text-yellow-400 ">DIGITAL REALITIES.</span>
+              <span className="text-yellow-400">DIGITAL REALITIES.</span>
             </h1>
           </motion.div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 border-t border-white/10 pt-12">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false }}
+            transition={{ duration: 0.6, delay: 0.15 }}
+            className="grid grid-cols-1 lg:grid-cols-12 gap-12 border-t border-white/10 pt-12"
+          >
             <div className="lg:col-span-4">
               <p className="text-sm font-mono text-gray-500 uppercase tracking-widest">
                 Biography
@@ -43,16 +50,22 @@ const AboutPage = () => {
                 I am a Full-Stack Engineer who specializes in bridging the gap
                 between complex backend logic and intuitive frontend
                 experiences. My approach is rooted in{" "}
-                <span className="text-white">mathematical precision</span> and
+                <span className="text-white">mathematical precision</span> and{" "}
                 <span className="text-white">architectural integrity</span>.
               </p>
             </div>
-          </div>
+          </motion.div>
         </section>
 
         {/* CONTENT SPLIT: THE MINDSET */}
         <section className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-end mb-40">
-          <div className="space-y-12">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: false }}
+            transition={{ duration: 0.6 }}
+            className="space-y-12"
+          >
             <h3 className="text-3xl font-bold tracking-tight">
               Systematic Growth
             </h3>
@@ -66,9 +79,15 @@ const AboutPage = () => {
                 Curriculum Vitae
               </div>
             </div>
-          </div>
+          </motion.div>
 
-          <div className="bg-[#252529] rounded-lg p-6 font-mono text-sm shadow-2xl border border-white/5">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: false }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="bg-[#252529] rounded-lg p-6 font-mono text-sm shadow-2xl border border-white/5"
+          >
             <div className="flex gap-2 mb-6">
               <div className="w-3 h-3 rounded-full bg-red-500/20" />
               <div className="w-3 h-3 rounded-full bg-yellow-500/20" />
@@ -96,16 +115,17 @@ const AboutPage = () => {
               <p>&#125;;</p>
               <p className="animate-pulse">_</p>
             </div>
-          </div>
+          </motion.div>
         </section>
 
-        {/* OVERLAPPING SPECIFICATIONS BOXES */}
+        {/* SPEC BOXES */}
         <section className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-[-80px]">
           {specs.map((spec, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: false }}
               transition={{ delay: i * 0.1 }}
               className="bg-[#44444E] p-8 border border-white/10 shadow-lg rounded-4xl hover:border-yellow-400/50 transition-all group"
             >

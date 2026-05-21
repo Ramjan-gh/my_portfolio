@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import {
   Mail,
@@ -11,27 +11,52 @@ import {
   Send,
 } from "lucide-react";
 
+const socialLinks = [
+  {
+    name: "LinkedIn",
+    icon: <Linkedin size={20} />,
+    url: "https://www.linkedin.com/in/ramjan-ali-581b7b341",
+    color: "hover:text-blue-400",
+  },
+  {
+    name: "GitHub",
+    icon: <Github size={20} />,
+    url: "https://github.com/Ramjan-gh",
+    color: "hover:text-white",
+  },
+  {
+    name: "Twitter",
+    icon: <Twitter size={20} />,
+    url: "https://x.com/Ramjan227",
+    color: "hover:text-sky-400",
+  },
+];
+
 const ContactPage = () => {
-  const socialLinks = [
-    {
-      name: "LinkedIn",
-      icon: <Linkedin size={20} />,
-      url: "https://www.linkedin.com/in/ramjan-ali-581b7b341",
-      color: "hover:text-blue-400",
-    },
-    {
-      name: "GitHub",
-      icon: <Github size={20} />,
-      url: "https://github.com/Ramjan-gh",
-      color: "hover:text-white",
-    },
-    {
-      name: "Twitter",
-      icon: <Twitter size={20} />,
-      url: "https://x.com/Ramjan227",
-      color: "hover:text-sky-400",
-    },
-  ];
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    subject: "Full-Stack Project",
+    message: "",
+  });
+
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
+  ) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const mailtoLink = `mailto:ramzanhridoy@gmail.com?subject=${encodeURIComponent(
+      `[${form.subject}] from ${form.name}`,
+    )}&body=${encodeURIComponent(
+      `Name: ${form.name}\nEmail: ${form.email}\n\n${form.message}`,
+    )}`;
+    window.location.href = mailtoLink;
+  };
 
   return (
     <div
@@ -106,6 +131,8 @@ const ContactPage = () => {
                   <motion.a
                     key={social.name}
                     href={social.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     whileHover={{ y: -5 }}
                     className={`flex items-center gap-2 text-gray-400 transition-colors ${social.color}`}
                   >
@@ -113,10 +140,7 @@ const ContactPage = () => {
                     <span className="text-sm font-bold uppercase tracking-wider">
                       {social.name}
                     </span>
-                    <ArrowUpRight
-                      size={14}
-                      className="opacity-0 group-hover:opacity-100 transition-opacity"
-                    />
+                    <ArrowUpRight size={14} />
                   </motion.a>
                 ))}
               </div>
@@ -131,7 +155,7 @@ const ContactPage = () => {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="bg-[#3b3a3f] p-8 md:p-12 rounded-3xl border border-white/5 shadow-lg"
           >
-            <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+            <form className="space-y-6" onSubmit={handleSubmit}>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <label className="text-xs font-mono text-gray-500 uppercase tracking-widest ml-1">
@@ -139,6 +163,10 @@ const ContactPage = () => {
                   </label>
                   <input
                     type="text"
+                    name="name"
+                    value={form.name}
+                    onChange={handleChange}
+                    required
                     placeholder="John Doe"
                     className="w-full bg-[#2e2e33] border border-white/10 rounded-xl px-5 py-4 focus:outline-none focus:border-yellow-400/50 transition-colors text-white"
                   />
@@ -149,6 +177,10 @@ const ContactPage = () => {
                   </label>
                   <input
                     type="email"
+                    name="email"
+                    value={form.email}
+                    onChange={handleChange}
+                    required
                     placeholder="john@example.com"
                     className="w-full bg-[#2e2e33] border border-white/10 rounded-xl px-5 py-4 focus:outline-none focus:border-yellow-400/50 transition-colors text-white"
                   />
@@ -159,7 +191,12 @@ const ContactPage = () => {
                 <label className="text-xs font-mono text-gray-500 uppercase tracking-widest ml-1">
                   Subject
                 </label>
-                <select className="w-full bg-[#2e2e33] border border-white/10 rounded-xl px-5 py-4 focus:outline-none focus:border-yellow-400/50 transition-colors text-white appearance-none">
+                <select
+                  name="subject"
+                  value={form.subject}
+                  onChange={handleChange}
+                  className="w-full bg-[#2e2e33] border border-white/10 rounded-xl px-5 py-4 focus:outline-none focus:border-yellow-400/50 transition-colors text-white appearance-none"
+                >
                   <option>Full-Stack Project</option>
                   <option>MVP Development</option>
                   <option>Consultation</option>
@@ -172,6 +209,10 @@ const ContactPage = () => {
                   Message
                 </label>
                 <textarea
+                  name="message"
+                  value={form.message}
+                  onChange={handleChange}
+                  required
                   rows={5}
                   placeholder="Tell me about your vision..."
                   className="w-full bg-[#2e2e33] border border-white/10 rounded-xl px-5 py-4 focus:outline-none focus:border-yellow-400/50 transition-colors text-white resize-none"
@@ -179,6 +220,7 @@ const ContactPage = () => {
               </div>
 
               <motion.button
+                type="submit"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 className="w-full bg-yellow-400 text-black font-bold py-5 rounded-xl flex items-center justify-center gap-3 hover:bg-yellow-300 transition-colors shadow-xl shadow-yellow-400/10"
@@ -192,5 +234,5 @@ const ContactPage = () => {
     </div>
   );
 };
- 
+
 export default ContactPage;

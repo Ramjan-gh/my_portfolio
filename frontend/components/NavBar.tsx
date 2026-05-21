@@ -16,23 +16,33 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  // Change background on scroll
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
+    const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Prevent scrolling when mobile menu is open
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-    }
+    document.body.style.overflow = isOpen ? "hidden" : "unset";
   }, [isOpen]);
+
+  const handleNavClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string,
+  ) => {
+    e.preventDefault();
+    setIsOpen(false);
+    if (href === "#home") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+    document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const handleLetsTalk = () => {
+    setIsOpen(false);
+    document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
+  };
 
   return (
     <nav
@@ -44,14 +54,18 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between py-2">
         {/* LOGO */}
-        <div className="flex items-center gap-2">
+        <a
+          href="#home"
+          onClick={(e) => handleNavClick(e, "#home")}
+          className="flex items-center gap-2"
+        >
           <div className="bg-yellow-400 p-1.5 rounded-lg shadow-lg shadow-yellow-400/20">
             <Code2 size={20} className="text-black" />
           </div>
           <span className="text-white font-bold text-xl tracking-tighter">
             RAMJAN.
           </span>
-        </div>
+        </a>
 
         {/* DESKTOP LINKS */}
         <div className="hidden md:flex items-center gap-8">
@@ -59,12 +73,16 @@ export default function Navbar() {
             <a
               key={link.name}
               href={link.href}
+              onClick={(e) => handleNavClick(e, link.href)}
               className="text-sm font-medium text-gray-300 hover:text-yellow-400 transition-colors"
             >
               {link.name}
             </a>
           ))}
-          <button className="bg-yellow-400 hover:bg-yellow-500 text-black px-5 py-2 rounded-xl text-sm font-bold transition-all transform hover:scale-105 active:scale-95">
+          <button
+            onClick={handleLetsTalk}
+            className="bg-yellow-400 hover:bg-yellow-500 text-black px-5 py-2 rounded-xl text-sm font-bold transition-all transform hover:scale-105 active:scale-95"
+          >
             Let's Talk
           </button>
         </div>
@@ -83,7 +101,6 @@ export default function Navbar() {
       <AnimatePresence>
         {isOpen && (
           <>
-            {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -91,8 +108,6 @@ export default function Navbar() {
               onClick={() => setIsOpen(false)}
               className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[101] md:hidden"
             />
-
-            {/* Menu Card */}
             <motion.div
               initial={{ opacity: 0, y: -20, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -102,18 +117,21 @@ export default function Navbar() {
             >
               {navLinks.map((link, index) => (
                 <motion.a
+                  key={link.name}
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.05 }}
-                  key={link.name}
                   href={link.href}
-                  onClick={() => setIsOpen(false)}
+                  onClick={(e) => handleNavClick(e, link.href)}
                   className="text-lg font-medium text-gray-300 hover:text-yellow-400 border-b border-white/5 pb-2 transition-colors"
                 >
                   {link.name}
                 </motion.a>
               ))}
-              <button className="bg-yellow-400 text-black w-full py-4 rounded-xl font-bold mt-2 shadow-lg shadow-yellow-400/20">
+              <button
+                onClick={handleLetsTalk}
+                className="bg-yellow-400 text-black w-full py-4 rounded-xl font-bold mt-2 shadow-lg shadow-yellow-400/20 hover:bg-yellow-300 transition-colors"
+              >
                 Let's Talk
               </button>
             </motion.div>
